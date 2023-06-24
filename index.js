@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('./middlewares/cors');
@@ -9,13 +10,13 @@ const session = require('./middlewares/session');
 
 const PORT = process.env.PORT || 3030;
 
-//const connectionString = 'mongodb://127.0.0.1:27017/furniture';
-const connectionString = 'mongodb+srv://ivanovaitanya:C8TYvhbrrJ5k1ueQ@cluster0.ck23ylh.mongodb.net/furnitureretryWrites=true&w=majority'
+const connectionString = process.env.CONNECTION_STRING;
 
 start();
 
 async function start() {
     await mongoose.connect(connectionString);
+    
     console.log('Database connected');
 
     const app = express();
