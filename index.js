@@ -7,6 +7,7 @@ const dataController = require('./controllers/dataController');
 const trimBody = require('./middlewares/trimBody');
 const session = require('./middlewares/session');
 
+const PORT = process.env.PORT || 3030;
 
 //const connectionString = 'mongodb://127.0.0.1:27017/furniture';
 const connectionString = 'mongodb+srv://ivanovaitanya:C8TYvhbrrJ5k1ueQ@cluster0.ck23ylh.mongodb.net/furnitureretryWrites=true&w=majority'
@@ -31,5 +32,5 @@ async function start() {
     app.use('/users', authController);
     app.use('/data/catalog', dataController);
     
-    app.listen(3030, () => console.log('REST service started'));
+    app.listen(PORT, () => console.log(`server started on port ${PORT}`));
 }
