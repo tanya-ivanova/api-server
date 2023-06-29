@@ -1,4 +1,4 @@
-const { getAll, create, getById, update, deleteById, getByUserId } = require('../services/itemService');
+const { getAll, create, getById, update, deleteById, getByUserId } = require('../services/postService');
 const { hasUser } = require('../middlewares/guards');
 const {parseError} = require('../util/parser');
 

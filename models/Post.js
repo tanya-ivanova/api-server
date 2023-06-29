@@ -1,6 +1,6 @@
 const {Schema, model, Types: {ObjectId}} = require('mongoose');
 
-const itemSchema = new Schema({
+const postSchema = new Schema({
     make: {type: String, required: true, minLength: [3, 'Make must be at least 3 characters long']},
     model: {type: String, required: true, minLength: [3, 'Model must be at least 3 characters long']},
     year: {type: Number, required: true, validate: {
@@ -14,6 +14,6 @@ const itemSchema = new Schema({
     _ownerId: {type: ObjectId, ref: 'User', required: true}
 });
 
-const Item = model('Item', itemSchema);
+const Post = model('Post', postSchema);
 
-module.exports = Item;
+module.exports = Post;

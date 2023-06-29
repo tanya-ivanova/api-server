@@ -1,23 +1,23 @@
-const Item = require('../models/Item');
+const Post = require('../models/Post');
 
 async function getAll() {
-    return Item.find({});
+    return Post.find({});
 }
 
 async function getByUserId(userId) {
-    return Item.find({_ownerId: userId});
+    return Post.find({_ownerId: userId});
 }
 
 async function getById(id) {
-    return Item.findById(id);
+    return Post.findById(id);
 }
 
 async function create(item) {
-    return Item.create(item);
+    return Post.create(item);
 }
 
 async function update(id, item) {
-    const existing = await Item.findById(id);
+    const existing = await Post.findById(id);
 
     existing.make = item.make;
     existing.model = item.model;
@@ -31,7 +31,7 @@ async function update(id, item) {
 }
 
 async function deleteById(id) {
-    return Item.findByIdAndDelete(id);
+    return Post.findByIdAndDelete(id);
 }
 
 

@@ -28,7 +28,7 @@ async function login(email, password) {
 
     const match = await bcrypt.compare(password, user.hashedPassword);
     if(!match) {
-        throw new Error('Email is takenIncorrect email or password');
+        throw new Error('Incorrect email or password');
     }
 
     return createToken(user);  
