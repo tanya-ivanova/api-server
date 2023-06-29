@@ -1,16 +1,12 @@
 const {Schema, model, Types: {ObjectId}} = require('mongoose');
 
 const postSchema = new Schema({
-    make: {type: String, required: true, minLength: [3, 'Make must be at least 3 characters long']},
-    model: {type: String, required: true, minLength: [3, 'Model must be at least 3 characters long']},
-    year: {type: Number, required: true, validate: {
-        validator: value => value >= 1950 && value <= 2050,
-        message: 'Year must be between 1950 and 2050'
-    }},
+    name: {type: String, required: true, minLength: [3, 'Name must be at least 3 characters long']},
+    mountain: {type: String, required: true, minLength: [3, 'Mountain must be at least 3 characters long']},
+    country: {type: String, required: true, minLength: [3, 'Country must be at least 3 characters long']},
+    duration: {type: String, required: true, minLength: [2, 'Duration must be at least 2 characters long']},
     description: {type: String, required: true, minLength: [10, 'Description must be at least 10 characters long']},
-    price: {type: Number, required: true, min: [0.01, 'Price must be a positive number']},
-    img: {type: String, required: [true, 'Image URL is required']},
-    material: {type: String, default: ''},
+    photos: {type: [String], required: [true, 'At least one photo is required']},    
     _ownerId: {type: ObjectId, ref: 'User', required: true}
 });
 
