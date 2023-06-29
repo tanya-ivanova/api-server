@@ -7,7 +7,7 @@ const postSchema = new Schema({
     duration: {type: String, required: true, minLength: [2, 'Duration must be at least 2 characters long']},
     description: {type: String, required: true, minLength: [10, 'Description must be at least 10 characters long']},
     photos: {type: [String], required: [true, 'At least one photo is required']},    
-    _ownerId: {type: ObjectId, ref: 'User', required: true}
+    //_ownerId: {type: ObjectId, ref: 'User', required: true}
 });
 
 const Post = model('Post', postSchema);
