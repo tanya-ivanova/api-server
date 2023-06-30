@@ -12,7 +12,7 @@ dataController.get('/', async (req, res) => {
     } else {
         items = await getAll();
     }
-    res.json(items);
+    res.json(items);    
 });
 
 dataController.post('/', hasUser(), async (req, res) => {
@@ -63,6 +63,5 @@ dataController.delete('/:id', hasUser(), async (req, res) => {
         res.status(400).json({message});
     }
 });
-
 
 module.exports = dataController;
