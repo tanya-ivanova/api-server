@@ -34,7 +34,6 @@ async function deleteById(id) {
     return Post.findByIdAndDelete(id);
 }
 
-
 module.exports = {
     getAll,
     getById,

@@ -6,6 +6,7 @@ const cors = require('./middlewares/cors');
 const authController = require('./controllers/authController');
 const dataController = require('./controllers/dataController');
 const weatherController = require('./controllers/weatherController');
+const searchController = require('./controllers/searchController');
 const trimBody = require('./middlewares/trimBody');
 const session = require('./middlewares/session');
 
@@ -34,6 +35,7 @@ async function start() {
     app.use('/users', authController);
     app.use('/data/posts', dataController);
     app.use('/weather', weatherController);
+    app.use('/search', searchController);
     
     app.listen(PORT, () => console.log(`server started on port ${PORT}`));
 }
