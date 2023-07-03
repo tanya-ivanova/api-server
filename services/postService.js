@@ -2,7 +2,7 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
 async function getAll() {
-    return Post.find({}).populate('_ownerId');
+    return Post.find({}).populate('_ownerId', 'email _id');
 }
 
 async function getByUserId(userId) {
