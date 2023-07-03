@@ -6,7 +6,7 @@ async function getAll() {
 }
 
 async function getByUserId(userId) {
-    return Post.find({_ownerId: userId}).populate('_ownerId');
+    return Post.find({_ownerId: userId}).populate('_ownerId', 'email _id');
 }
 
 async function getById(id) {
