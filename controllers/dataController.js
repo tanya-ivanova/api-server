@@ -1,4 +1,4 @@
-const { getAll, create, getById, update, deleteById, getByUserId } = require('../services/postService');
+const { getAll, create, getById, update, deleteById, getByUserId, postLike, postComment } = require('../services/postService');
 const { hasUser } = require('../middlewares/guards');
 const {parseError} = require('../util/parser');
 
@@ -62,6 +62,16 @@ dataController.delete('/:id', hasUser(), async (req, res) => {
         const message = parseError(error);
         res.status(400).json({message});
     }
+});
+
+dataController.post('/:id/likes', async (req, res) => {    
+    await postLike(req.params.id, req.user._id);
+    res.status(200).json({ message: 'Liked successful!' });
+});
+
+dataController.post('/:id/comments', async (req, res) => {    
+    const comment = await postComment(req.body, req.params.id, req.user._id);
+    res.json(comment);
 });
 
 module.exports = dataController;

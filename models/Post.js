@@ -9,8 +9,10 @@ const postSchema = new Schema({
     longitude: {type: Number, required: true},
     description: {type: String, required: true, minLength: [10, 'Description must be at least 10 characters long']},
     photos: {type: [String], required: [true, 'At least one photo is required']},    
-    //_ownerId: {type: ObjectId, ref: 'User', required: true}
-});
+    _ownerId: {type: ObjectId, ref: "User"},
+    likes: [{type: ObjectId, ref: "User", default: []}],
+    comments: [{type: ObjectId, ref: "Comment", default: []}],
+}, {timestamps: true});
 
 const Post = model('Post', postSchema);
 

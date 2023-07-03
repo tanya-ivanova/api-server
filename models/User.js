@@ -1,8 +1,8 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, Types: {ObjectId}} = require('mongoose');
 
 const userSchema = new Schema({
     email: {type: String, required: true, unique: true},
-    hashedPassword: {type: String, required: true}
+    hashedPassword: {type: String, required: true},    
 });
 
 userSchema.index({email: 1}, {

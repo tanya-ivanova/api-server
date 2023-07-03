@@ -6,7 +6,7 @@ const { parseError } = require('../util/parser');
 
 authController.post('/register', 
     body('email').isEmail().withMessage('Invallid email'),
-    body('password').isLength({min: 3}).withMessage('Password must be at least 3 characters long'),
+    body('password').isLength({min: 5}).withMessage('Password must be at least 5 characters long'),
     async (req, res) => {
     try {
         const {errors} = validationResult(req);

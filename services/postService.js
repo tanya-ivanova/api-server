@@ -1,15 +1,16 @@
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 async function getAll() {
-    return Post.find({});
+    return Post.find({}).populate('_ownerId');
 }
 
 async function getByUserId(userId) {
-    return Post.find({_ownerId: userId});
+    return Post.find({_ownerId: userId}).populate('_ownerId');
 }
 
 async function getById(id) {
-    return Post.findById(id);
+    return Post.findById(id).populate('_ownerId').populate('comments');
 }
 
 async function create(item) {
@@ -19,19 +20,30 @@ async function create(item) {
 async function update(id, item) {
     const existing = await Post.findById(id);
 
-    existing.make = item.make;
-    existing.model = item.model;
-    existing.year = item.year;
+    existing.name = item.name;
+    existing.mountain = item.mountain;
+    existing.country = item.country;
+    existing.duration = item.duration;
     existing.description = item.description;
-    existing.price = item.price;
-    existing.img = item.img;
-    existing.material = item.material;
+    existing.latitude = item.latitude;
+    existing.longitude = item.longitude;
 
     return existing.save();
 }
 
 async function deleteById(id) {
     return Post.findByIdAndDelete(id);
+}
+
+async function postLike(postId, userId) {    
+    return Post.updateOne({ _id: postId }, { $addToSet: { likes: userId } }, { new: true });
+}
+
+async function postComment(content, _postId, _ownerId) {
+    return Comment.create({ content, _postId, _ownerId })
+        .then(comment => {
+            return Post.findByIdAndUpdate({ _id: _postId }, { $push: { comments: comment._id } }, { new: true })          
+        })
 }
 
 module.exports = {
@@ -41,4 +53,6 @@ module.exports = {
     update,
     deleteById,
     getByUserId,
+    postLike,
+    postComment
 }
