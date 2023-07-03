@@ -15,7 +15,7 @@ dataController.get('/', async (req, res) => {
     res.json(items);    
 });
 
-dataController.post('/', hasUser(), async (req, res) => {
+dataController.post('/', async (req, res) => {
     try {
         const data = Object.assign({_ownerId: req.user._id}, req.body);
         const item = await create(data);
@@ -32,7 +32,7 @@ dataController.get('/:id', async (req, res) => {
     res.json(item);
 });
 
-dataController.put('/:id', hasUser(), async (req, res) => {
+dataController.put('/:id', async (req, res) => {
     const item = await getById(req.params.id);
     if(req.user._id != item._ownerId) {
         return res.status(403).json({message: 'You can\'t modify this record'});
@@ -48,7 +48,7 @@ dataController.put('/:id', hasUser(), async (req, res) => {
     }
 });
 
-dataController.delete('/:id', hasUser(), async (req, res) => {
+dataController.delete('/:id', async (req, res) => {
     const item = await getById(req.params.id);
     if(req.user._id != item._ownerId) {
         return res.status(403).json({message: 'You can\'t modify this record'});
