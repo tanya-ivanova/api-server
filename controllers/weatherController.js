@@ -3,8 +3,8 @@ const {weatherConditions} = require('../util/weather_conditions');
 
 const weatherController = require('express').Router();
 
-weatherController.get('/', async (req, res) => {
-    const weather = await getWeather();
+weatherController.get('/', async (req, res) => {    
+    const weather = await getWeather(req.query.latitude, req.query.longitude);
     const currentWeather = {};
     const forecastWeather = [];
 
