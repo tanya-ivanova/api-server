@@ -69,8 +69,8 @@ dataController.post('/:id/likes', async (req, res) => {
     res.status(200).json({ message: 'Liked successful!' });
 });
 
-dataController.post('/:id/comments', async (req, res) => {    
-    const comment = await postComment(req.body, req.params.id, req.user._id);
+dataController.post('/:id/comments', async (req, res) => {     
+    const comment = await postComment(req.body.content, req.params.id, req.user._id);
     res.json(comment);
 });
 
