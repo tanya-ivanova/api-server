@@ -59,7 +59,7 @@ dataController.delete('/:id', hasUser(), async (req, res) => {
         //res.status(204).end();
         res.json({
             userId: req.user._id,
-            ownerId: item._ownerId
+            ownerId: item._ownerId._id
         })
 
     } catch (error) {
