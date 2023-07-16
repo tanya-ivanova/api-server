@@ -13,7 +13,8 @@ async function getById(id) {
     return Post.findById(id).populate('_ownerId', 'email _id').populate({
         path: 'comments',
         populate: {
-            path: '_ownerId'
+            path: '_ownerId',
+            select: '_id email'
         }
     });
 }
