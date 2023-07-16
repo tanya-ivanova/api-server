@@ -10,7 +10,7 @@ async function getByUserId(userId) {
 }
 
 async function getById(id) {
-    return Post.findById(id).populate('_ownerId').populate('comments');
+    return Post.findById(id).populate('_ownerId').populate('comments').populate('comments._ownerId');
 }
 
 async function create(item) {
