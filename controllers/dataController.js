@@ -57,7 +57,7 @@ dataController.delete('/:id', hasUser(), async (req, res) => {
     try {
         await deleteById(req.params.id);
         //res.status(204).end();
-        res.status(204).json({
+        res.json({
             userId: req.user._id,
             ownerId: item._ownerId
         })
