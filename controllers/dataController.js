@@ -34,7 +34,7 @@ dataController.get('/:id', async (req, res) => {
 
 dataController.put('/:id', hasUser(), async (req, res) => {
     const item = await getById(req.params.id);
-    if(req.user._id != item._ownerId) {
+    if(req.user._id != item._ownerId._id) {
         return res.status(403).json({message: 'You can\'t modify this record'});
     }
 
