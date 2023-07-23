@@ -70,10 +70,12 @@ dataController.post('/:id/likes', hasUser(), async (req, res) => {
         return res.status(403).json({ message: 'You can\'t like your own post' });
     }
     
-    console.log(item.likes.includes(req.user._id));
+    if(item.likes.includes(req.user._id)) {
+        return res.status(403).json({ message: 'You can\'t like a post twice' });
+    }
 
     await postLike(req.params.id, req.user._id);
-    res.status(200).json({ message: item.likes.includes(req.user._id) });
+    res.status(200).json({ message: 'Liked successful!' });
 });
 
 dataController.post('/:id/comments', hasUser(), async (req, res) => {
