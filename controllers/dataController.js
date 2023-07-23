@@ -73,7 +73,7 @@ dataController.post('/:id/likes', hasUser(), async (req, res) => {
     console.log(item.likes.includes(req.user._id));
 
     await postLike(req.params.id, req.user._id);
-    res.status(200).json({ message: 'Liked successful!' });
+    res.status(200).json({ message: item.likes.includes(req.user._id) });
 });
 
 dataController.post('/:id/comments', hasUser(), async (req, res) => {
