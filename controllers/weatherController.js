@@ -5,6 +5,15 @@ const weatherController = require('express').Router();
 
 weatherController.get('/', async (req, res) => {    
     const weather = await getWeather(req.query.latitude, req.query.longitude);
+    if(weather.error) {
+        const message = 'Error in Weather Service';
+        return res.json({
+            error: {
+                message
+            }
+        });
+    }
+
     const currentWeather = {};
     const forecastWeather = [];
 

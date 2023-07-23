@@ -9,7 +9,7 @@ const tokenBlackList = new Set();
 async function register(email, password) {
     const existing = await User.findOne({email}).collation({locale: 'en', strength: 2});
     if(existing) {
-        throw new Error('Email is taken');
+        throw new Error('Account with this e-mail already exists!');
     }
 
     const user = await User.create({
@@ -23,12 +23,12 @@ async function register(email, password) {
 async function login(email, password) {
     const user = await User.findOne({email}).collation({locale: 'en', strength: 2});
     if(!user) {
-        throw new Error('Incorrect email or password');
+        throw new Error('Incorrect email or password!');
     }
 
     const match = await bcrypt.compare(password, user.hashedPassword);
     if(!match) {
-        throw new Error('Incorrect email or password');
+        throw new Error('Incorrect email or password!');
     }
 
     return createToken(user);  

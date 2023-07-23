@@ -14,6 +14,10 @@ authController.post('/register',
             throw errors;
         }
 
+        if(req.body.password !== req.body.repass) {
+            throw new Error('Passwords don\'t match!');
+        }
+
         const token = await register(req.body.email, req.body.password);
         res.json(token);
 
