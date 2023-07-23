@@ -69,6 +69,8 @@ dataController.post('/:id/likes', hasUser(), async (req, res) => {
     if (req.user._id == item._ownerId._id) {
         return res.status(403).json({ message: 'You can\'t like your own post' });
     }
+    
+    console.log(item.likes.includes(req.user._id));
 
     await postLike(req.params.id, req.user._id);
     res.status(200).json({ message: 'Liked successful!' });
