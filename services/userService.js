@@ -51,14 +51,13 @@ function createToken(user) {
     return {
         _id: user._id,
         email: user.email,
-        accessToken: jwt.sign(payload, secret, {expiresIn: 3}),
+        accessToken: jwt.sign(payload, secret, {expiresIn: 10}),
         expiresIn: 3,
         expirationDate,
     };
 }
 
-function parseToken(token) {
-    console.log(token.expirationDate);
+function parseToken(token) {    
     const expirationDuration = new Date(token.expirationDate).getTime() - new Date().getTime();
 
     if(expirationDuration <= 0) {
