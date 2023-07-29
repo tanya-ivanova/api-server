@@ -43,16 +43,27 @@ function createToken(user) {
     const payload = {
         _id: user._id,
         email: user.email
-    };    
+    }; 
+    
+    const expiresIn = 3;
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
     return {
         _id: user._id,
         email: user.email,
-        accessToken: jwt.sign(payload, secret)
+        accessToken: jwt.sign(payload, secret, {expiresIn: 3}),
+        expiresIn: 3,
+        expirationDate,
     };
 }
 
 function parseToken(token) {
+    const expirationDuration = new Date(token.expirationDate).getTime() - new Date().getTime();
+
+    if(expirationDuration <= 0) {
+        logout(token);
+    }
+
     if(tokenBlackList.has(token)) {
         throw new Error('Token is blacklisted');
     }
