@@ -2,11 +2,17 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
 async function getAll() {
-    return Post.find({}).populate('_ownerId', 'email _id');
+    return Post
+        .find({})
+        .sort({ createdAt: -1 })
+        .populate('_ownerId', 'email _id');
 }
 
 async function getByUserId(userId) {
-    return Post.find({_ownerId: userId}).populate('_ownerId', 'email _id');
+    return Post
+        .find({_ownerId: userId})
+        .sort({ createdAt: -1 })
+        .populate('_ownerId', 'email _id');
 }
 
 async function getById(id) {
