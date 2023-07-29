@@ -51,7 +51,7 @@ function createToken(user) {
     return {
         _id: user._id,
         email: user.email,
-        accessToken: jwt.sign(payload, secret, {expiresIn: 10}),
+        accessToken: jwt.sign(payload, secret, {expiresIn: 50}),
         expiresIn: 3,
         expirationDate,
     };
