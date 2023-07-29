@@ -52,7 +52,7 @@ function createToken(user) {
         _id: user._id,
         email: user.email,
         accessToken: jwt.sign(payload, secret, {expiresIn: 50}),
-        expiresIn: 3,
+        expiresIn: 50,
         expirationDate,
     };
 }
