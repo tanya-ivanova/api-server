@@ -58,6 +58,7 @@ function createToken(user) {
 }
 
 function parseToken(token) {
+    console.log(token.expirationDate);
     const expirationDuration = new Date(token.expirationDate).getTime() - new Date().getTime();
 
     if(expirationDuration <= 0) {
