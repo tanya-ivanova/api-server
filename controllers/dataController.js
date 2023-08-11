@@ -1,6 +1,7 @@
 const { getAll, create, getById, update, deleteById, getByUserId, postLike, postComment } = require('../services/postService');
 const { hasUser } = require('../middlewares/guards');
 const { parseError } = require('../util/parser');
+const { count } = require('../models/Post');
 
 const dataController = require('express').Router();
 
@@ -10,7 +11,7 @@ dataController.get('/', async (req, res) => {
         const userId = JSON.parse(req.query.where.split('=')[1]);
         items = await getByUserId(userId);
     } else {
-        items = await getAll(req.query.page);
+        ({items, count}) = await getAll(req.query.page);
     }
     res.json(items);
 });
