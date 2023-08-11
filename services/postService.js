@@ -5,12 +5,21 @@ async function getAll(page) {
     const pageSize = 3;
     const skipRecords = (page - 1) * pageSize;
 
-    return Post
+    const posts = Post
         .find({})
         .sort({ createdAt: -1 })
         .limit(pageSize)
         .skip(skipRecords)
         .populate('_ownerId', 'email _id');
+
+    const count = Post
+    .find({})
+    .count();
+
+    return {
+        posts,
+        count
+    };
 }
 
 async function getByUserId(userId) {
