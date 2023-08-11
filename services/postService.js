@@ -5,27 +5,17 @@ async function getAll(page) {
     const pageSize = 3;
     const skipRecords = (page - 1) * pageSize;
 
-
-    const posts = Post
+    return Post
         .find({})
         .sort({ createdAt: -1 })
         .limit(pageSize)
         .skip(skipRecords)
         .populate('_ownerId', 'email _id');
-
-    const count = Post
-        .find({})
-        .count();
-
-    return {
-        posts,
-        count,
-    }
 }
 
 async function getByUserId(userId) {
     return Post
-        .find({ _ownerId: userId })
+        .find({_ownerId: userId})
         .sort({ createdAt: -1 })
         .populate('_ownerId', 'email _id');
 }
@@ -62,14 +52,14 @@ async function deleteById(id) {
     return Post.findByIdAndDelete(id);
 }
 
-async function postLike(postId, userId) {
+async function postLike(postId, userId) {    
     return Post.updateOne({ _id: postId }, { $addToSet: { likes: userId } }, { new: true });
 }
 
 async function postComment(content, _postId, _ownerId) {
     return Comment.create({ content, _postId, _ownerId })
         .then(comment => {
-            return Post.findByIdAndUpdate({ _id: _postId }, { $push: { comments: comment._id } }, { new: true })
+            return Post.findByIdAndUpdate({ _id: _postId }, { $push: { comments: comment._id } }, { new: true })          
         })
 }
 
