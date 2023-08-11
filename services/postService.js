@@ -5,14 +5,14 @@ async function getAll(page) {
     const pageSize = 3;
     const skipRecords = (page - 1) * pageSize;
 
-    const posts = Post
+    const posts = await Post
         .find({})
         .sort({ createdAt: -1 })
         .limit(pageSize)
         .skip(skipRecords)
         .populate('_ownerId', 'email _id');
 
-    const count = Post
+    const count = await Post
     .find({})
     .count();
 
