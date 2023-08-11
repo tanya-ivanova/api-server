@@ -13,7 +13,7 @@ dataController.get('/', async (req, res) => {
     } else {
         ({posts, count}) = await getAll(req.query.page);
     }
-    res.json(items);
+    res.json({posts, count});
 });
 
 dataController.post('/', hasUser(), async (req, res) => {
