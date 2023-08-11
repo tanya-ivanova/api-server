@@ -1,8 +1,9 @@
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
+const pageSize = 3;
+
 async function getAll(page) {
-    const pageSize = 3;
     const skipRecords = (page - 1) * pageSize;
 
     const posts = await Post
@@ -13,8 +14,8 @@ async function getAll(page) {
         .populate('_ownerId', 'email _id');
 
     const count = await Post
-    .find({})
-    .count();
+        .find({})
+        .count();
 
     return {
         posts,
@@ -22,11 +23,24 @@ async function getAll(page) {
     };
 }
 
-async function getByUserId(userId) {
-    return Post
-        .find({_ownerId: userId})
+async function getByUserId(userId, page) {
+    const skipRecords = (page - 1) * pageSize;
+    
+    const posts = await Post
+        .find({ _ownerId: userId })
         .sort({ createdAt: -1 })
+        .limit(pageSize)
+        .skip(skipRecords)
         .populate('_ownerId', 'email _id');
+
+    const count = await Post
+        .find({ _ownerId: userId })
+        .count();
+
+    return {
+        posts,
+        count
+    };
 }
 
 async function getById(id) {
@@ -61,14 +75,14 @@ async function deleteById(id) {
     return Post.findByIdAndDelete(id);
 }
 
-async function postLike(postId, userId) {    
+async function postLike(postId, userId) {
     return Post.updateOne({ _id: postId }, { $addToSet: { likes: userId } }, { new: true });
 }
 
 async function postComment(content, _postId, _ownerId) {
     return Comment.create({ content, _postId, _ownerId })
         .then(comment => {
-            return Post.findByIdAndUpdate({ _id: _postId }, { $push: { comments: comment._id } }, { new: true })          
+            return Post.findByIdAndUpdate({ _id: _postId }, { $push: { comments: comment._id } }, { new: true })
         })
 }
 

@@ -5,10 +5,10 @@ const { parseError } = require('../util/parser');
 const dataController = require('express').Router();
 
 dataController.get('/', async (req, res) => {
-    let items = [];
+    let items;
     if (req.query.where) {
         const userId = JSON.parse(req.query.where.split('=')[1]);
-        items = await getByUserId(userId);
+        items = await getByUserId(userId, req.query.page);
     } else {
         items = await getAll(req.query.page);
     }
