@@ -11,7 +11,8 @@ dataController.get('/', async (req, res) => {
         const userId = JSON.parse(req.query.where.split('=')[1]);
         items = await getByUserId(userId);
     } else {
-        ({posts, count}) = await getAll(req.query.page);
+        data = await getAll(req.query.page);
+        console.log(data);
     }
     res.json({posts, count});
 });
