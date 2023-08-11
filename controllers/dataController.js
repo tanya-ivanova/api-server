@@ -13,6 +13,7 @@ dataController.get('/', async (req, res) => {
     } else {
         data = await getAll(req.query.page);
         console.log(data);
+        res.json(data.posts);
     }
     res.json(data.posts);
 });
