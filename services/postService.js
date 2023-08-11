@@ -7,7 +7,7 @@ async function getAll(page) {
 
     return Post
         .find({})
-        .sort({ createdAt: 1 })
+        .sort({ createdAt: -1 })
         .limit(pageSize)
         .skip(skipRecords)
         .populate('_ownerId', 'email _id');
