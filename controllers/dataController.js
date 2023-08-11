@@ -14,7 +14,7 @@ dataController.get('/', async (req, res) => {
         data = await getAll(req.query.page);
         console.log(data);
     }
-    res.json({posts, count});
+    res.json(data.posts);
 });
 
 dataController.post('/', hasUser(), async (req, res) => {
