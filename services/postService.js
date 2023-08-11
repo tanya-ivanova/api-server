@@ -1,10 +1,15 @@
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
-async function getAll() {
+async function getAll(page) {
+    const pageSize = 3;
+    const skipRecords = (page - 1) * pageSize;
+
     return Post
         .find({})
         .sort({ createdAt: -1 })
+        .limit(pageSize)
+        .skip(skipRecords)
         .populate('_ownerId', 'email _id');
 }
 

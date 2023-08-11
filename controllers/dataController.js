@@ -10,7 +10,7 @@ dataController.get('/', async (req, res) => {
         const userId = JSON.parse(req.query.where.split('=')[1]);
         items = await getByUserId(userId);
     } else {
-        items = await getAll();
+        items = await getAll(req.query.page);
     }
     res.json(items);
 });
