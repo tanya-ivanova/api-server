@@ -45,7 +45,7 @@ function createToken(user) {
         email: user.email
     }; 
     
-    const expiresIn = 3;
+    const expiresIn = 600;
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
     return {
