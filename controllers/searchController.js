@@ -3,16 +3,17 @@ const {searchPosts} = require('../services/searchService');
 
 const searchController = require('express').Router();
 
-searchController.get('/', async (req, res) => {   
+searchController.get('/', hasUser(), async (req, res) => {   
     const search = req.query.search; 
-    const decodedSearch = decodeURIComponent(search);     
+    const decodedSearch = decodeURIComponent(search);  
+    const page = req.query.page;   
 
     let searchResults = [];
     if(search) {
-        searchResults = await searchPosts(decodedSearch);
+        searchResults = await searchPosts(decodedSearch, page);
     }
     
-    res.json(searchResults);   
+    res.json({posts: searchResults.posts, count: searchResults.count});   
 });
 
 module.exports = searchController;
